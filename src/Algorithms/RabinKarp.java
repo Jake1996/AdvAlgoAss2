@@ -20,12 +20,26 @@ public class RabinKarp {
 			currentHash *= prime;
 			currentHash += text[i];
 		}
-		if(currentHash == hash) return i-length;
+		if(currentHash == hash) {
+			int j;
+			for(j=0;j<length;j++)
+				if(pattern[j]!=text[i-length+1+j])
+					break;
+			if(j==length)
+				return i-length+1;
+		}
 		for(i = start+length;i<=end;i++) {
 			currentHash -= text[i-length]*primepow;
 			currentHash *= prime;
 			currentHash += text[i];
-			if(currentHash==hash) return i-length+1;
+			if(currentHash==hash) {
+				int j;
+				for(j=0;j<length;j++)
+					if(pattern[j]!=text[i-length+1+j])
+						break;
+				if(j==length)
+					return i-length+1;
+			}
 		}
 		return -1;
 	}
