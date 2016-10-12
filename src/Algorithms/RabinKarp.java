@@ -1,7 +1,7 @@
 package Algorithms;
 
 public class RabinKarp {
-	public static long findPatternInText(char text[],char pattern[],int start ,int end) {
+	public static int findPatternInText(char text[],char pattern[],int start ,int end) {
 		int length = pattern.length;
 		final int mod = 1000000007;
 		final int prime = 97;
@@ -28,6 +28,12 @@ public class RabinKarp {
 			if(currentHash==hash) return i-length+1;
 		}
 		return -1;
+	}
+	public static int findPatternInText(char text[],char pattern[]) {
+		return findPatternInText(text, pattern, 0, text.length-1);
+	}
+	public static int findPatternInText(char text[],char pattern[],int start) {
+		return findPatternInText(text, pattern, start, text.length-1);
 	}
 	
 }
