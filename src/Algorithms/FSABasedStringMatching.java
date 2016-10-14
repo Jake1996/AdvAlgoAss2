@@ -44,7 +44,6 @@ class FSABasedStringMatching
 		ArrayList<Integer> patternFoundAtPosition = new ArrayList<Integer>();
 		
 		int state = 0;
-		System.out.println("state.length is : " +stateTable.length);
 		for(int j=0;j<text.length();j++)
 		{
 			state = stateTable[state][text.charAt(j)];
@@ -78,6 +77,71 @@ class FSABasedStringMatching
         	br.close();
     	}
 	}
+	public static void writeFile(String fileName,String text)
+	{
+		PrintWriter out;
+		try
+		{
+		out = new PrintWriter(fileName);
+		out.println(text);
+		out.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		
+	}
+	public static void writeFile(String fileName,ArrayList<String> text)
+	{
+		PrintWriter out;
+		try
+		{
+		out = new PrintWriter(fileName);
+			for(int i=0;i<text.size();i++)
+			{ 
+				out.println(text.get(i));
+				//out.close();
+			}
+		out.close();	
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		
+	}
+	public static void processText(ArrayList<Integer> patternFoundAt,String text)
+	{
+		ArrayList<String> removedStrings = new ArrayList<String>();
+		StringBuilder processedText = new StringBuilder();
+		processedText.append(text);
+		int sum = 0;
+		
+		for(int i=0;i<patternFoundAt.size();i++)
+		{
+			int textIndex = patternFoundAt.get(i);
+			int j=0;
+			while(text.charAt(textIndex+j)!=' ' && text.charAt(textIndex+j)!='\n') 
+			{
+				j++;
+			}
+			j++;
+			removedStrings.add(processedText.substring(textIndex-sum,textIndex+j-sum));
+			processedText.delete(textIndex-sum,textIndex+j-sum);
+			sum+=j;
+
+		}
+		writeFile("./../../assets/processed Tales.txt",processedText.toString());
+		writeFile("./../../assets/removedURL.txt",removedStrings);
+
+		
+
+
+		//processedText.
+	}
 	public static void main(String[] args)
 	{
 		String text="";
@@ -94,17 +158,9 @@ class FSABasedStringMatching
 		FSABasedStringMatching X = new FSABasedStringMatching("http:",text);
 		
 		ArrayList<Integer> patternFoundAt = X.findPatternInText();
-		for(int i=0;i<patternFoundAt.size();i++)
-		{
-			int textIndex = patternFoundAt.get(i);
-			int j=0;
-			while(text.charAt(textIndex+j)!=' ' && text.charAt(textIndex+j)!='\n') 
-			{
-				System.out.print(text.charAt(textIndex+j));
-				j++;
-			}
-			System.out.println();
-		}
+		processText(patternFoundAt,text);
+		
+		
 		
 		
 		
