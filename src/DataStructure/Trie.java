@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Trie {
+	final char lex[] = "0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz".toCharArray();
 	TrieNode root;
 	public Trie() {
 		root = new TrieNode();
@@ -83,6 +84,19 @@ public class Trie {
 		int length = sequence.length();
 		for(int i=0;i<length;i++) {
 			add(sequence.substring(i));
+		}
+	}
+	
+	public void printIndex() {
+		dfs(root,"");
+	}
+	private void dfs(TrieNode node,String current) {
+		if(node.checkChild('$')) {
+			System.out.println(current+", "+node.getChild('$').getOccurances());
+		}
+		for(char c : lex) {
+			if(node.checkChild(c))
+				dfs(node.getChild(c),current+c);
 		}
 	}
 }

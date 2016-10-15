@@ -24,18 +24,16 @@ public class Index {
 					}
 					arr[i] = arr[i].replaceAll("[^0-9a-zA-Z]", "");
 					obj.add(arr[i]);
-					System.out.println(arr[i]);
+					//System.out.println(arr[i]);
 				}
 			}
 			fin.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Done");
+		obj.printIndex();
 	}
 
 }
