@@ -6,26 +6,30 @@ import java.io.IOException;
 
 import DataStructure.Trie;
 
-public class Index {
+public class Storywise {
 
 	public static void main(String[] args) {
-		Trie obj = new Trie();
+		Trie obj= new Trie();
 		try {
-			FileReader file = new FileReader(new File("assets/AESOP TALES (with random URLs).txt"));
+			FileReader file = new FileReader(new File("assets/standardized.txt"));
 			BufferedReader fin = new BufferedReader(file);
 			String line;
 			String arr[];
 			int i;
+			String title="";
 			while((line = fin.readLine())!=null) {
 				arr = line.split(" ");
 				for(i=0;i<arr.length;i++) {
-					if(arr[i].equals("")) {
-						continue;
+					if(arr[i].equals("$*")) {
+						i++;
+						title=arr[i++];
+						while(i<arr.length&&!arr[i].equals("*")) {
+							title = title+" "+arr[i++];
+						}
 					}
 					arr[i] = arr[i].toUpperCase();
 					arr[i] = arr[i].replaceAll("[^0-9A-Z]", "");
-					obj.add(arr[i],"");
-					//System.out.println(arr[i]);
+					obj.add(arr[i],title);
 				}
 			}
 			fin.close();
@@ -36,5 +40,6 @@ public class Index {
 		}
 		obj.printIndex();
 	}
+	
 
 }

@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Trie {
-	final char lex[] = "0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz".toCharArray();
+	final char lex[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 	TrieNode root;
 	public Trie() {
 		root = new TrieNode();
 	}
-	public void add(String sequence) {
+	public void add(String sequence,String title) {
 		int length = sequence.length();
 		Character c;
 		TrieNode ref=root;
@@ -22,7 +22,7 @@ public class Trie {
 				ref = ref.addChild(c);
 			}
 		}
-		ref.addEndChild();
+		ref.addEndChild(title);
 	}
 	public boolean contains(String sequence) {
 		sequence = sequence+"$";
@@ -59,7 +59,7 @@ public class Trie {
 		}
 		return flag;
 	}
-	public int noOfOccurances(String sequence) {
+	public String noOfOccurances(String sequence) {
 		int length = sequence.length();
 		Character c;
 		TrieNode ref=root;
@@ -77,14 +77,7 @@ public class Trie {
 		if(flag) {
 			return ref.getChild('$').getOccurances();
 		}
-		return 0;
-	}
-	
-	public void addSuffix(String sequence) {
-		int length = sequence.length();
-		for(int i=0;i<length;i++) {
-			add(sequence.substring(i));
-		}
+		return "0";
 	}
 	
 	public void printIndex() {
@@ -92,7 +85,7 @@ public class Trie {
 	}
 	private void dfs(TrieNode node,String current) {
 		if(node.checkChild('$')) {
-			System.out.println(current+", "+node.getChild('$').getOccurances());
+			System.out.println(current+" - "+node.getChild('$').getOccurances());
 		}
 		for(char c : lex) {
 			if(node.checkChild(c))
@@ -103,25 +96,36 @@ public class Trie {
 
 class TrieNode {
 	private Map<Character, TrieNode> children;
-	private Integer occurances;
+	private HashMap<String,Integer> occurances;
 	boolean endOfWord;
 	public TrieNode() {
 		children = new HashMap<Character, TrieNode>();
 		
 	}
-	public TrieNode (boolean isEnd,int oc) {
+	public TrieNode (boolean isEnd,String title) {
 		endOfWord = isEnd;
-		occurances = oc;
+		occurances= new HashMap<>();
+		occurances.put(title, 1);
 	}
-	public TrieNode setOccurances() {
-		occurances++;
+	public TrieNode setOccurances(String title) {
+		if(occurances.containsKey(title))
+			occurances.put(title, occurances.get(title)+1);
+		else
+			occurances.put(title, 1);
 		return this;
 	}
-	public int getOccurances() {
-		if(endOfWord)
-			return occurances;
+	public String getOccurances() {
+		if(endOfWord) {
+			int total=0;
+			String ans="";
+			for(String key : occurances.keySet()) {
+				total+=occurances.get(key);
+				ans=ans+key+" : "+occurances.get(key)+", ";
+			}
+			return total+" :: "+ans;
+		}
 		else
-			return 0;
+			return "0";
 	}
 	public boolean checkChild(Character key) {
 		return children.containsKey(key);
@@ -137,11 +141,11 @@ class TrieNode {
 	public boolean isEnd() {
 		return endOfWord;
 	}
-	public void addEndChild() {
+	public void addEndChild(String title) {
 		if(children.containsKey('$'))
-			children.put('$', children.get('$').setOccurances());
+			children.put('$', children.get('$').setOccurances(title));
 		else
-			children.put('$', new TrieNode(true,1));
+			children.put('$', new TrieNode(true,title));
 		
 	}
 }
