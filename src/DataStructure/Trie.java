@@ -58,6 +58,27 @@ public class Trie {
 		}
 		return flag;
 	}
+	public int noOfOccurances(String sequence) {
+		int length = sequence.length();
+		Character c;
+		TrieNode ref=root;
+		boolean flag = true;
+		for(int i=0;i<length;i++) {
+			c = sequence.charAt(i);
+			if(ref.checkChild(c)) {
+				ref = ref.getChild(c);
+			}
+			else {
+				flag = false;
+				break;
+			}
+		}
+		if(flag) {
+			return ref.getChild('$').getOccurances();
+		}
+		return 0;
+	}
+	
 	public void addSuffix(String sequence) {
 		int length = sequence.length();
 		for(int i=0;i<length;i++) {
@@ -68,12 +89,25 @@ public class Trie {
 
 class TrieNode {
 	private Map<Character, TrieNode> children;
+	private Integer occurances;
 	boolean endOfWord;
 	public TrieNode() {
 		children = new HashMap<Character, TrieNode>();
+		
 	}
-	public TrieNode (boolean isEnd) {
+	public TrieNode (boolean isEnd,int oc) {
 		endOfWord = isEnd;
+		occurances = oc;
+	}
+	public TrieNode setOccurances() {
+		occurances++;
+		return this;
+	}
+	public int getOccurances() {
+		if(endOfWord)
+			return occurances;
+		else
+			return 0;
 	}
 	public boolean checkChild(Character key) {
 		return children.containsKey(key);
@@ -90,6 +124,10 @@ class TrieNode {
 		return endOfWord;
 	}
 	public void addEndChild() {
-		children.put('$', new TrieNode(true));
+		if(children.containsKey('$'))
+			children.put('$', children.get('$').setOccurances());
+		else
+			children.put('$', new TrieNode(true,1));
+		
 	}
 }
