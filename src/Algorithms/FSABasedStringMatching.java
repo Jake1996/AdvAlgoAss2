@@ -20,7 +20,7 @@ class FSABasedStringMatching
 		stateTable = new int[pattern.length()+1][256];
 		createStateTable();
 	}
-	public void createStateTable()
+	public void createStateTable()  //creates state table of finite automata
 	{
 		int lps = 0;
 		
@@ -39,7 +39,7 @@ class FSABasedStringMatching
 		}
 
 	}
-	public ArrayList<Integer> findPatternInText()
+	public ArrayList<Integer> findPatternInText()   //returns arraylist of indices where the patter is found.
 	{
 		ArrayList<Integer> patternFoundAtPosition = new ArrayList<Integer>();
 		
@@ -57,7 +57,7 @@ class FSABasedStringMatching
 		}
 		return patternFoundAtPosition;
 	}
-	public static String readFile(String fileName) throws IOException 
+	public static String readFile(String fileName) throws IOException   
 	{
     	BufferedReader br = new BufferedReader(new FileReader(fileName));
    	 	try 
@@ -113,7 +113,7 @@ class FSABasedStringMatching
 		
 		
 	}
-	public static void processText(ArrayList<Integer> patternFoundAt,String text)
+	public static void processText(ArrayList<Integer> patternFoundAt,String text)  /*Runner program*/
 	{
 		ArrayList<String> removedStrings = new ArrayList<String>();
 		StringBuilder processedText = new StringBuilder();
@@ -129,20 +129,15 @@ class FSABasedStringMatching
 				j++;
 			}
 			j++;
-			removedStrings.add(processedText.substring(textIndex-sum,textIndex+j-sum));
-			processedText.delete(textIndex-sum,textIndex+j-sum);
-			sum+=j;
+			removedStrings.add(processedText.substring(textIndex-sum,textIndex+j-sum-1));
+			processedText.delete(textIndex-sum,textIndex+j-sum-1);
+			sum+=j-1;
 
 		}
-		writeFile("./../../assets/processed Tales.txt",processedText.toString());
+		writeFile("./../../assets/processedTales.txt",processedText.toString());
 		writeFile("./../../assets/removedURL.txt",removedStrings);
-
-		
-
-
-		//processedText.
 	}
-	public static void main(String[] args)
+	public static void main(String[] args)   /*Runner program*/
 	{
 		String text="";
 		try 
@@ -155,7 +150,7 @@ class FSABasedStringMatching
 		}
 		int[][] stateTable = new int[8][256];
 
-		FSABasedStringMatching X = new FSABasedStringMatching("http:",text);
+		FSABasedStringMatching X = new FSABasedStringMatching("http",text);
 		
 		ArrayList<Integer> patternFoundAt = X.findPatternInText();
 		processText(patternFoundAt,text);

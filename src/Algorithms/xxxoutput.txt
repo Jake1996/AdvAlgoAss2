@@ -1,0 +1,13 @@
+0
+4
+size of the suffix array is 8
+sorting starts
+$
+$
+abc$
+bc$
+c$
+efg$
+fg$
+  i ind lcp rnk select
+---------------------------
