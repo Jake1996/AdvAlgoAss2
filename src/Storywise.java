@@ -29,7 +29,8 @@ public class Storywise {
 					}
 					arr[i] = arr[i].toUpperCase();
 					arr[i] = arr[i].replaceAll("[^0-9A-Z]", "");
-					obj.add(arr[i],title);
+					if(!arr[i].equals(""))
+						obj.add(arr[i],title);
 				}
 			}
 			fin.close();
