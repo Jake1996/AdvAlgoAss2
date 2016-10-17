@@ -8,10 +8,10 @@ import DataStructure.Trie;
 
 public class Storywise {
 
-	public static void main(String[] args) {
+	public static void Index(String filename) {
 		Trie obj= new Trie();
 		try {
-			FileReader file = new FileReader(new File("assets/standardized.txt"));
+			FileReader file = new FileReader(new File(filename));
 			BufferedReader fin = new BufferedReader(file);
 			String line;
 			String arr[];

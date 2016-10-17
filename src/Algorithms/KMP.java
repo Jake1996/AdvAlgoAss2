@@ -39,4 +39,40 @@ public class KMP {
 		}
 		return arr;
 	}
+	public static int occurances(char text[],char pattern[],int start,int end) {
+		int prefixArray[] = generatePrefixArray(pattern);
+		int occ = 0;
+		int i= start;
+		int t;
+		if(end>=text.length) end = text.length-1;
+		while(i<=text.length-pattern.length) {
+			t = occurances1(text, pattern, prefixArray, i, end);
+			if(t!=-1) {
+				occ++;
+				i=t+1;
+			}
+			else {
+				break;
+			}
+		}
+		return occ;
+	}
+	public static int occurances1(char text[],char pattern[],int prefixArray[],int start,int end) {
+		int j=0,i=start;
+		while(i<=end) {
+			if(i<=end&&j<pattern.length&&text[i]==pattern[j]) {
+				i++;
+				j++;
+			}
+			if(j==pattern.length)
+				return i-pattern.length;
+			else if(i<=end&&j<pattern.length&&text[i]!=pattern[j]){
+				if(j==0)
+					i++;
+				else
+					j = prefixArray[j-1];
+			}
+		}
+		return -1;
+	}
 }
