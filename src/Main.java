@@ -73,9 +73,23 @@ public class Main {
 					System.out.println();
 					break;
 				case 3 :
-					Storywise.Index(txtfile);
+					System.out.print("Algos : \n1..Rabin-karp\n2..KMP\n3..Suffix Tree\nEnter Algo choice : ");
+					int type = in.nextInt();
+					System.out.print("Enter the file name: ");
+					//txtfile = in.next();					
+					if(type==1) {
+						RabinKarp.Build_cross_Index(txtfile);
+					}
+					else if(type==2) {
+						KMP.Build_cross_Index(txtfile);
+					}
+					else {
+						Storywise.Index(txtfile);
+					}
+					System.out.println();
 					break;
 				case 4 :
+					
 					break;
 				case 5 :
 					break;
