@@ -95,15 +95,8 @@ public class standardize
             	}
             	i++;
             }
-            i=0;
-            while(i<sb.length()-1)
-            {
-            	if(sb.charAt(i)==' ' && sb.charAt(i+1)==' ')
-            	{
-            		sb.delete(i,i+1);
-            	}
-            	else{i++;}
-            }
+            
+           
 
             i=0;
             boolean starOpen = false;
@@ -143,7 +136,27 @@ public class standardize
                 }
                 i++;
             }
+            i=0;
+            while(i<sb.length())
+            {
+                if(!sb.substring(i,i+1).matches("[a-zA-z0-9|\\s|$|*]"))// && !sb.substring(i,i+1).matches("[$|*|\\s]"));
+                   { sb.delete(i,i+1); }
+                else
+                {
+                    i++;
+                }
+            }
+            i=0;
+             while(i<sb.length()-1)
+            {
+                if(sb.charAt(i)==' ' && sb.charAt(i+1)==' ')
+                {
+                    sb.delete(i,i+1);
+                }
+                else{i++;}
+            }
             //System.out.println(sb.toString());
+            if(sb.toString().charAt(sb.length()-1)==' ')System.out.println("asdasdasdasd");
             writeFile("./../assets/standardized.txt",sb.toString());
            
         }

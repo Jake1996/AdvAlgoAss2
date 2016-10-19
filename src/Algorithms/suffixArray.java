@@ -16,14 +16,14 @@ public class suffixArray {
     public suffixArray(String text) {
         
         this.text = text;
-        int n = text.length()-1;
-        System.out.println("text kength is : " +text.length());
+        int n = text.length();
+        System.out.println("text length is : " +text.length());
 
         this.suffixes = new Suffix[n];
 
         int i=0;
         StringBuilder subtext ;
-        while(i<text.length()-1)
+        while(i<text.length())
         {
            //System.out.println(i);
             subtext = new StringBuilder();
@@ -239,6 +239,47 @@ public class suffixArray {
         return -1;
     }
 
+    public void palindromeSearch(int minSize)
+    {
+        int actualLength = (suffixes.length-1)/2;
+        for(int i=1;i<suffixes.length;i++)
+        {
+            if(getLCP(i)>=minSize)
+            {
+                if((suffixes[i].length()<=actualLength && suffixes[i-1].length()>actualLength+1)
+                    || (suffixes[i].length()>actualLength+1 && suffixes[i-1].length()<=actualLength))
+                {
+                    if(checkIfPalindrome(suffixes[i],suffixes[i-1],getLCP(i))==true)
+                    {
+                        System.out.println(suffixArray.this.text.substring(suffixes[i].start,suffixes[i].start+getLCP(i)));
+                    }
+                }
+            }
+        }
+    }
+    public boolean checkIfPalindrome(Suffix s1,Suffix s2,int l)
+    {
+        int n = suffixes.length;
+        int actualLength = (n-1)/2;
+        Suffix temp;
+        if(s2.length()>actualLength+1)
+        {
+            temp = s1;
+            s2 = s1;
+            s1 = temp;
+        }
+        int start = s2.start;
+        int end = s2.start + l -1;
+        if(n-end==s1.start && n-start ==(s2.start+l-1))
+        {
+            return true;
+        }
+        else
+            return false;
+
+    }
+
+
     public static String readFile(String fileName) throws IOException 
     {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -266,6 +307,8 @@ public class suffixArray {
         try 
         {
             s = readFile("./../../assets/standardized.txt");
+            //s = "accd#dcca$ ";
+            s = s.trim();
            
         }
         catch(Exception e)
@@ -274,29 +317,17 @@ public class suffixArray {
         }
 
         suffixArray suffix = new suffixArray(s);
-        System.out.println(suffix.numOfPatternOcurrences(in.next()));
-        // StdOut.println("rank(" + args[0] + ") = " + suffix.rank(args[0]));
-
-      /*  System.out.println("  i ind lcp rnk select");
-        System.out.println("---------------------------");*/
-
-
-
-        /*for (int i = 0; i < s.length()-1; i++) {
-            int start = suffix.index(i).start;
-            int end = suffix.index(i).end;
-            String ith = "\"" + s.substring(start, end+1) + "\"";
-            assert s.substring(start,end+1).equals(suffix.select(i));
-            int rank = suffix.rank(s.substring(start,end+1));
-            if (i == 0) {
-          //System.out.printf("%3d %3d %3d %3s %3d %s\n", i, start,end, "-", rank, ith);
-            }
-            else {
-                int lcp = suffix.getLCP(i);
-            //  System.out.printf("%3d %3d %3d %3d %3d %s\n", i, start,end, lcp, rank, ith);
-            }*/
-
-       
+        while(true)
+        {
+        System.out.println("Enter the patter that you want to search or press ctrl+E and enter to end");
+        String search = in.nextLine();
+        //if(search.compareTo("^E")==0)break;
+        if((int)search.charAt(0)==5) break;
+        //System.out.println(search);
+        System.out.println(suffix.numOfPatternOcurrences(search));
+        }
+       // suffix.palindromeSearch(0);
+      
     }
 
 }
