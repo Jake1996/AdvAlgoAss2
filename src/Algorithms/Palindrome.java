@@ -49,7 +49,7 @@ public class Palindrome
 
 			}
 			}
-			if(isPalindrome && words[i].length()>longest)
+			if(isPalindrome && words[i].length()!=1)
 				{
 					longest = words[i].length();
 					System.out.println(words[i]);
