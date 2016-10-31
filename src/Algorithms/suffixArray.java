@@ -1,3 +1,5 @@
+package Algorithms;
+
 //import java.util.Arrays;
 import java.util.*;
 //import java.util.*;
@@ -210,6 +212,48 @@ public class suffixArray {
         }
         else return 0;
 
+    }
+    public int patternSearchIndex(String query)
+    {
+    	int low = 0;
+    	int high = suffixes.length - 1;
+    	int index = patternSearch(query,0,high);
+    	int li,hi;
+        li = index-1;
+        hi = index+1;
+        if(index!=-1)
+        {
+            int ind = high;
+            while(li>=0)
+            {
+                if(getLCP(query,suffixes[li])==query.length() && suffixes[li].start < ind )
+                {
+                    ind = li;
+                    li--;
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+            while(hi<suffixes.length)
+            {
+                if(getLCP(query,suffixes[hi])==query.length() && suffixes[hi].start < ind)
+                {
+                    ind = hi;
+                    hi++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return ind;
+        }
+        else return -1;
+    	
+    	
     }
     public int patternSearch(String query,int low,int high)
     {

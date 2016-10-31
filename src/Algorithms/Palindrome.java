@@ -1,4 +1,5 @@
-import java.util.*;
+package Algorithms;
+
 import java.io.*;
 
 
@@ -24,19 +25,19 @@ public class Palindrome
             br.close();
         }
     }
-	public static void main(String[] args)
+	public static void pdrome(String args,int size)
 	{
 		String text ="";
 		try
 		{
-			text = readFile("./../../assets/standardized.txt");
+			text = readFile(args);
 		}
 		catch(IOException e)
 		{
 			System.out.println(e);
 		}
 		String[] words = text.split(" ");
-		int longest = 0;
+		int longest = size;
 		for(int i =0;i<words.length;i++)
 		{
 			boolean isPalindrome = true;

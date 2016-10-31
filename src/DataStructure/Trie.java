@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Trie {
-	final char lex[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+	final char lex[] = "0123456789abcdefghijklmnopqrstuvwxyz".toCharArray();
 	TrieNode root;
 	public Trie() {
 		root = new TrieNode();

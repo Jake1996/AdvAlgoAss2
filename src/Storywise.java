@@ -22,13 +22,14 @@ public class Storywise {
 				for(i=0;i<arr.length;i++) {
 					if(arr[i].equals("$*")) {
 						i++;
+						if(i==arr.length) break;
 						title=arr[i++];
 						while(i<arr.length&&!arr[i].equals("*")) {
 							title = title+" "+arr[i++];
 						}
 					}
-					arr[i] = arr[i].toUpperCase();
-					arr[i] = arr[i].replaceAll("[^0-9A-Z]", "");
+					//arr[i] = arr[i].toUpperCase();
+					//arr[i] = arr[i].replaceAll("[^0-9A-Z]", "");
 					if(!arr[i].equals(""))
 						obj.add(arr[i],title);
 				}
