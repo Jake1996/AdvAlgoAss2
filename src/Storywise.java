@@ -10,6 +10,8 @@ public class Storywise {
 
 	public static void Index(String filename) {
 		Trie obj= new Trie();
+		long t1,t2,t3;
+		t1 = System.nanoTime();
 		try {
 			FileReader file = new FileReader(new File(filename));
 			BufferedReader fin = new BufferedReader(file);
@@ -40,7 +42,11 @@ public class Storywise {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		t2 = System.nanoTime();
 		obj.printIndex();
+		t3 = System.nanoTime();
+		System.out.println("PreProcess Time : "+(t2-t1));
+		System.out.println("Run Time :"+(t3-t2));
 	}
 	
 

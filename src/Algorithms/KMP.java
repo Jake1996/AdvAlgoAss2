@@ -19,7 +19,7 @@ public class KMP {
 				i++;
 				j++;
 			}
-			if(j==pattern.length)
+			if(j==pattern.length) 
 				return i-pattern.length;
 			else if(i<=end&&j<pattern.length&&text[i]!=pattern[j]){
 				if(j==0)
@@ -28,6 +28,7 @@ public class KMP {
 					j = prefixArray[j-1];
 			}
 		}
+		
 		return -1;
 	}
 	public static int findPatternInText(char text[],char pattern[]) {

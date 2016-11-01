@@ -19,10 +19,10 @@ public class Main {
 		String text="";
 		try {
 			text = Palindrome.readFile(txtfile);
+			text = text.trim();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 		do {
 			System.out.println("1..Find_Length_ofText(txtfile)\n2..Find_Pattern ( pattern , InTextRange,  algo)\n3..Build_Cross_Index(txtfile, algo)");
 			System.out.print("4..Find_Maximal,Palindromes(PalindromeSize,  InTextRange )\n5..Print_Stats ( ) \n6..Exit\nEnter your choice: ");
