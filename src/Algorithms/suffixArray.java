@@ -19,7 +19,7 @@ public class suffixArray {
         
         this.text = text;
         int n = text.length();
-        System.out.println("text length is : " +text.length());
+        //System.out.println("text length is : " +text.length());
 
         this.suffixes = new Suffix[n];
 

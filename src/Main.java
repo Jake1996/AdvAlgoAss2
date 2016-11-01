@@ -79,7 +79,8 @@ public class Main {
 						System.out.println(KMP.occurances(text.toCharArray(), pattern.toCharArray(),start,end));
 					}
 					else {
-						System.out.println(suffix.patternSearch(pattern, start, end));
+						suffixArray tsuf = new suffixArray(text.substring(start,end)+"$");
+						System.out.println(tsuf.numOfPatternOcurrences(pattern));
 					}
 					System.out.println();
 					break;
