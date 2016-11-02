@@ -38,23 +38,22 @@ public class Palindrome
 		}
 		String[] words = text.split(" ");
 		int longest = size;
-		for(int i =0;i<words.length;i++)
+		for(int i=0;i<words.length;i++)
 		{
-			boolean isPalindrome = true;
-			if(words[i].length()>longest)
+			if(ifPalindrome(words[i])  && words[i].length()>size)
 			{
-			for(int j=0,k=words[i].length()-1;j<k;j++,k--)
-			{
-				if(words[i].charAt(j)!=words[i].charAt(k))
-					isPalindrome = false;
-
+				System.out.println(words[i]);
 			}
-			}
-			if(isPalindrome && words[i].length()!=1)
-				{
-					longest = words[i].length();
-					System.out.println(words[i]);
-				}
 		}
 	}
+	public static boolean ifPalindrome(String word)
+	{
+		for(int i=0,k=word.length()-1;i<k;i++,k--)
+		{
+			if(word.charAt(i)!=word.charAt(k))
+				return false;
+		}
+		return true;
+	}
+	
 }

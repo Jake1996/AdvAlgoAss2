@@ -25,7 +25,7 @@ public class Main {
 		}	
 		do {
 			System.out.println("1..Find_Length_ofText(txtfile)\n2..Find_Pattern ( pattern , InTextRange,  algo)\n3..Build_Cross_Index(txtfile, algo)");
-			System.out.print("4..Find_Maximal,Palindromes(PalindromeSize,  InTextRange )\n5..Print_Stats ( ) \n6..Exit\nEnter your choice: ");
+			System.out.print("4..Find_Maximal,Palindromes(PalindromeSize,  InTextRange )\n5..Exit\nEnter your choice: ");
 			choice = in.nextInt();
 			switch(choice) {
 				case 1 :
@@ -79,6 +79,7 @@ public class Main {
 						System.out.println(KMP.occurances(text.toCharArray(), pattern.toCharArray(),start,end));
 					}
 					else {
+						//System.out.println(start+" "+end);
 						suffixArray tsuf = new suffixArray(text.substring(start,end)+"$");
 						System.out.println(tsuf.numOfPatternOcurrences(pattern));
 					}
@@ -103,11 +104,10 @@ public class Main {
 					int size = in.nextInt();
 					Palindrome.pdrome(txtfile,size);
 					break;
-				case 5 :
-					break;
+
 
 			}
-		}while(choice!=6);
+		}while(choice!=5);
 		in.close();
 	}
 
